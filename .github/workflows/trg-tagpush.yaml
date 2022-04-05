@@ -10,6 +10,7 @@ jobs:
       ## こんな感じで -> v0.0.1 とか
       - run: echo ${GITHUB_REF##*/}
       ## 実際に使うときは環境変数にしたりとか
-      - name:
+      - name: step-name
+        id: step-id
         run: echo "TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
       - run: echo ${{ env.TAG }}
