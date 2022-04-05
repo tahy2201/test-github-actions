@@ -1,0 +1,15 @@
+name: Tag trigger test
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      ## こんな感じで -> v0.0.1 とか
+      - run: echo ${GITHUB_REF##*/}
+      ## 実際に使うときは環境変数にしたりとか
+      - name:
+        run: echo "TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
+      - run: echo ${{ env.TAG }}
