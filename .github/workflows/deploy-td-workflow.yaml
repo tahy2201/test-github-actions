@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        value: ${{ fromJson(needs.check-update.outputs.prj_list) }}
+        value: ${{ needs.check-update.outputs.prj_list }}
     steps:
       - name: echo matrix
         uses: actions/checkout@v2
