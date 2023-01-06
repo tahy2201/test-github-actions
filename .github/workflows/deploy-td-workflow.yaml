@@ -18,7 +18,8 @@ jobs:
       - id: check_update
         run: |
           upd_prj_list=`git diff --name-only origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF} |grep ^projects |awk -F / '{print $2}'|sort |uniq`
-          echo "::set-output name=upd_prj_list::$upd_prj_list"
+          echo $upd_prj_list
+          echo "upd_prj_list=$upd_prj_list" >> $GITHUB_OUTPUT
 
   do_process:
     needs: check-update
