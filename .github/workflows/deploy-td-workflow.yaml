@@ -12,6 +12,9 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
+      - name: Fetch base branch
+        run: git fetch origin main:main
+
       - name: deploy
         run: |
           git diff --name-only origin/${{ github.base_ref }}...HEAD
