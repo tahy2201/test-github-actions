@@ -2,7 +2,7 @@ name: Container
 on:
   pull_request:
     # branches:
-    #   - master
+    #   - main
     # types: [closed]
 
 jobs:
@@ -14,5 +14,5 @@ jobs:
 
       - name: deploy
         run: |
-          git diff --name-only ${{ github.base_ref }} HEAD
-          git diff --name-only ${{ github.base_ref }} HEAD |grep ^projects |awk -F / '{print $2}'|sort |uniq
+          git diff --name-only origin/${{ github.base_ref }} HEAD
+          git diff --name-only origin/${{ github.base_ref }} HEAD |grep ^projects |awk -F / '{print $2}'|sort |uniq
