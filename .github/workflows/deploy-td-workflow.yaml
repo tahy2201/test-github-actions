@@ -28,7 +28,7 @@ jobs:
       matrix:
         value: ${{ fromJson(needs.check-update.outputs.prj_list) }}
     steps:
-      - name: Checkout Code
+      - name: echo matrix
         uses: actions/checkout@v2
       - run: |
           echo ${{ matrix.value }}
