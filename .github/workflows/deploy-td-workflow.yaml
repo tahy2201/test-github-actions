@@ -11,11 +11,14 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          
       - name: Fetch base branch
         run: git fetch origin main:main
 
       - name: deploy
         run: |
+          git branch
           git diff --name-only origin/${{ github.base_ref }}...HEAD
           git diff --name-only origin/${{ github.base_ref }}...HEAD |grep ^projects |awk -F / '{print $2}'|sort |uniq
