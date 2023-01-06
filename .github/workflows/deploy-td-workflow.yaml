@@ -6,17 +6,28 @@ on:
     # types: [closed]
 
 jobs:
-  deploy-workflow:
+  check-update:
     runs-on: ubuntu-latest
+    outputs:
+      prj_list: ${{ steps.check_update.outputs.upd_prj_list }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - run: git diff origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF}
-
-      - name: deploy
+      - id: check_update
         run: |
-          git branch
-          git diff --name-only origin/${{ github.base_ref }}...HEAD
-          git diff --name-only origin/${{ github.base_ref }}...HEAD |grep ^projects |awk -F / '{print $2}'|sort |uniq
+          upd_prj_list=`git diff --name-only origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF} |grep ^projects |awk -F / '{print $2}'|sort |uniq`
+          echo "::set-output name=upd_prj_list::$upd_prj_list"
+
+  do_process:
+    needs: check-update
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        value: ${{ fromJson(needs.check-update.outputs.prj_list) }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - run: |
+          echo ${{ matrix.value }}
