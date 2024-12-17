@@ -1,0 +1,15 @@
+name: learn-github-actions
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    env: 
+      JAVA_HOME: $JAVA_HOME_11_X64
+    steps:
+      - uses: actions/checkout@v2
+      - name: echo java home
+        run: |
+          echo "ths is env=$JAVA_HOME"
+      - name: echo java version
+        run: |
+          java -version        
