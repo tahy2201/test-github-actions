@@ -7,9 +7,9 @@ jobs:
       JAVA_HOME: /usr/lib/jvm/temurin-11-jdk-amd64
     steps:
       - uses: actions/checkout@v2
-      - name: echo java home
-        run: |
-          echo "ths is JAVA_HOME=$JAVA_HOME, JAVA_HOME_11_X64=$JAVA_HOME_11_X64"
       - name: echo java version
         run: |
           java -version
+      - name: echo java home
+        run: |
+          echo "ths is JAVA_HOME=$JAVA_HOME, JAVA_HOME_11_X64=$JAVA_HOME_11_X64"
